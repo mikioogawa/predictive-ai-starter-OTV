@@ -1,0 +1,9 @@
+name: recipe-template
+description: Predictive AI Starter
+runtime:
+  name: python
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: python
+  datarobot:tracecontext: predictive-ai-starter
