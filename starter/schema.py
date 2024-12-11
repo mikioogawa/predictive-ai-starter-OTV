@@ -23,18 +23,16 @@ class AppSettings(BaseModel):
 
     registered_model_version_id: str = Field(
         description=(
-            "ID of the AutoTS registered model version to be deployed for forecasting"
+            "ID of the registered model version to be deployed for forecasting"
         )
     )
     registered_model_name: str
     use_case_id: str
     project_id: str
     model_id: str = Field(
-        description="ID of the AutoTS registered model to be deployed for forecasting"
+        description="ID of the registered model to be deployed for forecasting"
     )
-    target: str = Field(
-        description="Name of the untransformed target column in the training dataset"
-    )
+    target: str = Field(description="Name of the target column in the training dataset")
     training_dataset_id: str
     page_description: str
     page_title: str

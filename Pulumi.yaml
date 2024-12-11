@@ -1,4 +1,4 @@
-name: recipe-template
+name: predictive-ai-starter
 description: Predictive AI Starter
 runtime:
   name: python
