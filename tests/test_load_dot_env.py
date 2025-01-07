@@ -104,6 +104,38 @@ second line # still not a comment'
         assert env_vars[var] == get_bash_env(env_content, var, tmp_path)
 
 
+def test_multiple_comments(tmp_path):
+    env_content = """
+# A comment
+
+# another comment
+KEY1=VALUE1
+
+# another comment
+KEY2='
+    MULTILINEVALUE1
+    MULTILINEVALUE2
+'
+KEY3='
+# MULTILINEVALUE1
+    
+    MULTILINEVALUE2
+'
+"""
+    env_path = tmp_path / ".env"
+    env_path.write_text(env_content)
+
+    old_cwd = os.getcwd()
+    os.chdir(tmp_path)
+    try:
+        env_vars = load_dotenv()
+    finally:
+        os.chdir(old_cwd)
+    print(env_vars)
+    for var in ["KEY1", "KEY2", "KEY3"]:
+        assert env_vars[var] == get_bash_env(env_content, var, tmp_path)
+
+
 def test_google_service_acc_env(tmp_path):
     env_content = """
 GOOGLE_SERVICE_ACCOUNT='{
