@@ -12,9 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+
 import pulumi
 import pulumi_datarobot as datarobot
 import yaml
+
+sys.path.append("..")
 
 from infra import (
     settings_app,

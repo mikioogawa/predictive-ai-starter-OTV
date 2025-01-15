@@ -17,6 +17,6 @@ from .common.schema import DatasetArgs
 from .settings_main import project_name
 
 training_dataset = DatasetArgs(
-    resource_name=f"Recipe Template Training Data [{project_name}]",
+    resource_name=f"Predictive AI Starter Training Data [{project_name}]",
     file_path="assets/10K_2007_to_2011_Lending_Club_Loans_v2_mod_80.csv",
 )

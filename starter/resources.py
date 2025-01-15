@@ -29,6 +29,24 @@ from pydantic_settings import (
 from pydantic_settings.sources import parse_env_vars
 
 
+def get_stack_suffix() -> str:
+    try:
+        return (
+            "."
+            + subprocess.check_output(
+                ["pulumi", "stack", "--show-name", "--non-interactive"],
+                text=True,
+                stderr=subprocess.STDOUT,
+            ).strip()
+        )
+    except Exception:
+        pass
+    return ""
+
+
+app_settings_file_name = f"train_model_output{get_stack_suffix()}.yaml"
+
+
 class PulumiSettingsSource(EnvSettingsSource):
     """Pulumi stack outputs as a pydantic settings source."""
 

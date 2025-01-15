@@ -13,7 +13,6 @@
 # limitations under the License.
 
 
-import subprocess
 import sys
 from urllib.parse import urljoin
 
@@ -24,29 +23,11 @@ from pydantic import ValidationError
 sys.path.append("..")
 
 from starter.i18n import gettext
-from starter.resources import Deployment, ScoringDataset
+from starter.resources import Deployment, ScoringDataset, app_settings_file_name
 from starter.schema import (
     AppSettings,
     AppUrls,
 )
-
-
-def get_stack_suffix() -> str:
-    try:
-        return (
-            "."
-            + subprocess.check_output(
-                ["pulumi", "stack", "--show-name", "--non-interactive"],
-                text=True,
-                stderr=subprocess.STDOUT,
-            ).strip()
-        )
-    except Exception:
-        pass
-    return ""
-
-
-app_settings_file_name = f"train_model_output{get_stack_suffix()}.yaml"
 
 try:
     with open(app_settings_file_name) as f:

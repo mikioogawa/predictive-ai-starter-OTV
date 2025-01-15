@@ -21,8 +21,8 @@ from .common.schema import (
 from .settings_main import project_name
 
 deployment_args = DeploymentArgs(
-    resource_name=f"Recipe Template Deployment [{project_name}]",
-    label=f"Recipe Template Deployment [{project_name}]",
+    resource_name=f"Predictive AI Starter Deployment [{project_name}]",
+    label=f"Predictive AI Starter Deployment [{project_name}]",
     predictions_settings=(
         datarobot.DeploymentPredictionsSettingsArgs(min_computes=0, max_computes=1)
     ),

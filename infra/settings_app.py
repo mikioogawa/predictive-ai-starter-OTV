@@ -24,6 +24,7 @@ import pulumi_datarobot as datarobot
 from infra.common.globals import GlobalRuntimeEnvironment
 from infra.common.schema import ApplicationSourceArgs
 from infra.settings_main import (
+    PROJECT_ROOT,
     application_path_str,
     model_training_nb_output_name,
     model_training_output_path_str,
@@ -36,11 +37,11 @@ from starter.i18n import LanguageCode, LocaleSettings
 application_path = Path(application_path_str)
 
 app_source_args = ApplicationSourceArgs(
-    resource_name=f"Recipe Template App Source [{project_name}]",
+    resource_name=f"Predictive AI Starter App Source [{project_name}]",
     base_environment_id=GlobalRuntimeEnvironment.PYTHON_39_STREAMLIT.value.id,
 ).model_dump(mode="json", exclude_none=True)
 
-app_resource_name: str = f"Recipe Template Application [{project_name}]"
+app_resource_name: str = f"Predictive AI Starter Application [{project_name}]"
 application_locale = LocaleSettings().app_locale
 
 
@@ -89,6 +90,8 @@ def get_app_files(
 ) -> List[Tuple[str, str]]:
     _prep_metadata_yaml(runtime_parameter_values)
 
+    starter_path = PROJECT_ROOT / "starter"
+
     source_files = [
         (str(f), str(f.relative_to(application_path)))
         for f in application_path.glob("**/*")
@@ -96,10 +99,10 @@ def get_app_files(
         and f.name != runtime_parameters_spec_template
         and model_training_nb_output_name not in f.name
     ] + [
-        ("starter/schema.py", "starter/schema.py"),
-        ("starter/api.py", "starter/api.py"),
-        ("starter/resources.py", "starter/resources.py"),
-        ("starter/i18n.py", "starter/i18n.py"),
+        (str(starter_path / "schema.py"), "starter/schema.py"),
+        (str(starter_path / "api.py"), "starter/api.py"),
+        (str(starter_path / "resources.py"), "starter/resources.py"),
+        (str(starter_path / "i18n.py"), "starter/i18n.py"),
         (
             model_training_output_path_str,
             model_training_nb_output_name,
@@ -109,7 +112,13 @@ def get_app_files(
     if application_locale != LanguageCode.EN:
         source_files.append(
             (
-                f"starter/locale/{application_locale}/LC_MESSAGES/base.mo",
+                str(
+                    starter_path
+                    / "locale"
+                    / application_locale
+                    / "LC_MESSAGES"
+                    / "base.mo"
+                ),
                 f"starter/locale/{application_locale}/LC_MESSAGES/base.mo",
             )
         )

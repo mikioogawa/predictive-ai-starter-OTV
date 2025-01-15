@@ -26,23 +26,25 @@ from .common.stack import get_stack
 project_name = get_stack()
 
 prediction_environment_args = PredictionEnvironmentArgs(
-    resource_name=f"Recipe Template Prediction Environment [{project_name}]",
+    resource_name=f"Predictive AI Starter Prediction Environment [{project_name}]",
     platform=GlobalPredictionEnvironmentPlatforms.DATAROBOT_SERVERLESS,
 ).model_dump(mode="json", exclude_none=True)
 
 
 use_case_args = UseCaseArgs(
-    resource_name=f"Recipe Template Use Case [{project_name}]",
-    description="Use Case for Recipe Template application",
+    resource_name=f"Predictive AI Starter Use Case [{project_name}]",
+    description="Use Case for Predictive AI Starter application",
 )
 
-application_path_str = "frontend/"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.absolute()
+
+application_path_str = str(PROJECT_ROOT / "frontend")
 runtime_parameters_spec_template = "metadata.yaml.jinja"
 runtime_parameters_spec = "metadata.yaml"
 
 model_training_nb_name = "train_model.ipynb"
-model_training_nb_path = Path(f"notebooks/{model_training_nb_name}")
+model_training_nb_path = PROJECT_ROOT / "notebooks" / model_training_nb_name
 model_training_nb_output_name = "train_model_output.yaml"
 model_training_output_name = f"train_model_output.{project_name}.yaml"
-model_training_output_path_str = f"{application_path_str}{model_training_output_name}"
+model_training_output_path_str = f"{application_path_str}/{model_training_output_name}"
 model_training_output_path = Path(model_training_output_path_str)
