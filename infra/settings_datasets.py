@@ -18,5 +18,5 @@ from .settings_main import project_name
 
 training_dataset = DatasetArgs(
     resource_name=f"Predictive AI Starter Training Data [{project_name}]",
-    file_path="assets/10K_2007_to_2011_Lending_Club_Loans_v2_mod_80.csv",
+    file_path="assets/store_sales_train.csv",
 )
