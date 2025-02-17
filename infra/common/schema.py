@@ -153,6 +153,37 @@ class AutopilotRunArgs(BaseModel):
     name: str
     analyze_and_model_config: AnalyzeAndModelArgs | None = None
     advanced_options_config: AdvancedOptionsArgs | None = None
+    datetime_partitioning_config: DatetimePartitioningArgs | None = None
+
+class DatetimePartitioningArgs(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+    datetime_partition_column: str
+    autopilot_data_selection_method: str | None = None
+    validation_duration: str | None = None
+    holdout_start_date: Any | None = None
+    holdout_duration: str | None = None
+    disable_holdout: bool | None = None
+    gap_duration: str | None = None
+    number_of_backtests: int | None = None
+    backtests: Any | None = None
+    use_time_series: bool = False
+    default_to_known_in_advance: bool = False
+    default_to_do_not_derive: bool = False
+    feature_derivation_window_start: int | None = None
+    feature_derivation_window_end: int | None = None
+    feature_settings: Any | None = None
+    forecast_window_start: int | None = None
+    forecast_window_end: int | None = None
+    windows_basis_unit: str | None = None
+    treat_as_exponential: str | None = None
+    differencing_method: str | None = None
+    periodicities: Any | None = None
+    multiseries_id_columns: List[str] | None = None
+    use_cross_series_features: bool | None = None
+    aggregation_type: str | None = None
+    cross_series_group_by_columns: List[str] | None = None
+    calendar_id: str | None = None
+    holdout_end_date: Any | None = None
 
 
 class ApplicationSourceArgs(BaseModel):
